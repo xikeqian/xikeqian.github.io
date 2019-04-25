@@ -26,10 +26,15 @@
 <script>
 $(document).ready(function(){
 	alert('loaded complete');
-    IframeOnClick.track(document.getElementById("frame"), function() { alert('a click'); });
+    IframeOnClick.track(document.getElementById("frame"), function() { console.log('a click'); });
     // $('#frame').on('touchstart',function(){
 	//     console.log('touchstart capture');
 	// })
+    // var event = new Event('CustomEvent');
+//监听
+//     elem.addEventListener('CustomEvent', function (e) { ... }, false);
+// 触发event
+//     elem.dispatchEvent(event);
 });
 var IframeOnClick = {
     resolution: 200,
