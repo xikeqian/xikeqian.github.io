@@ -27,8 +27,11 @@
 $(document).ready(function(){
 	alert('loaded complete');
 	$('#frame').on('click',function(){
-	    alert('click capture');
-	},true)
+	    console.log('click capture');
+	},true);
+	$('#frame').on('touchstart',function(){
+	    console.log('touchstart capture');
+	})
 });
 </script>
 </body>
