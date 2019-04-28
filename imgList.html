@@ -83,6 +83,7 @@
 		});
 		gallery.listen('initialZoomInEnd', () => {
 			document.getElementsByClassName('pswp')[0].style.position = "absolute";
+			_addPreventDefaultEvents();
 		});
 	}
 	function closePswp(){
