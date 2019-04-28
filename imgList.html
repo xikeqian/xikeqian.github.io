@@ -98,11 +98,10 @@
 			let I = odiv[index];
 			I.addEventListener('touchstart',function(){
 				javascript:parent.sendImg('https://common.xxpie.com/official_website:pic_gongguan.png');
-				// console.log($('.pswp__item')[gallery.getCurrentIndex()]);
-				$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
+				// $('.pswp__item').eq(gallery.getCurrentIndex()).trigger('touchstart');
 			});
 		}
-	};
+	}
 </script>	
 </body>
 </html>
