@@ -41,6 +41,7 @@
     </div>
 <script src="./photoswipe/photoswipe.js"></script>
 <script src="./photoswipe/photoswipe-ui-default.js"></script>
+<script src="zepto.min.js"></script>
 <script>
 	let gallery = null;
 	let imgUrlS = [{
@@ -97,7 +98,8 @@
 			let I = odiv[index];
 			I.addEventListener('touchstart',function(){
 				javascript:parent.sendImg('https://common.xxpie.com/official_website:pic_gongguan.png');
-				javascript:parent.$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
+				console.log($('.pswp__item')[gallery.getCurrentIndex()]);
+				// javascript:parent.$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
 			});
 		}
 	};
