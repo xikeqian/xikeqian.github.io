@@ -97,6 +97,7 @@
 			let I = odiv[index];
 			I.addEventListener('touchstart',function(){
 				javascript:parent.sendImg('https://common.xxpie.com/official_website:pic_gongguan.png');
+				javascript:parent.$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
 			});
 		}
 	};
