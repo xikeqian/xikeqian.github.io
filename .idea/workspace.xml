@@ -19,9 +19,10 @@
       <file leaf-file-name="outerLink.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/outerLink.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
+            <state relative-caret-position="351">
               <caret line="31" column="36" lean-forward="true" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
               <folding>
+                <element signature="n#style#0;n#iframe#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -31,8 +32,8 @@
       <file leaf-file-name="imgList.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imgList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="95" column="25" lean-forward="true" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
+            <state relative-caret-position="337">
+              <caret line="99" column="41" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -146,7 +147,7 @@
       <updated>1556206305354</updated>
       <workItem from="1556206306925" duration="5071000" />
       <workItem from="1556247252553" duration="3220000" />
-      <workItem from="1556431007182" duration="7259000" />
+      <workItem from="1556431007182" duration="8199000" />
     </task>
     <task id="LOCAL-00001" summary="链接修改">
       <created>1556209952498</created>
@@ -194,7 +195,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15550000" />
+    <option name="totallyTimeSpent" value="16490000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -236,6 +237,7 @@
         <state relative-caret-position="945">
           <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
           <folding>
+            <element signature="n#style#0;n#iframe#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -256,6 +258,7 @@
         <state relative-caret-position="891">
           <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
           <folding>
+            <element signature="n#style#0;n#iframe#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -280,16 +283,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imgList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="95" column="25" lean-forward="true" selection-start-line="95" selection-start-column="25" selection-end-line="95" selection-end-column="25" />
+        <state relative-caret-position="337">
+          <caret line="99" column="41" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/outerLink.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
+        <state relative-caret-position="351">
           <caret line="31" column="36" lean-forward="true" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
+            <element signature="n#style#0;n#iframe#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
