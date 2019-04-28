@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图片列表</title>
+	<link rel="stylesheet" href="./photoswipe/photoswipe.css"/>
+</head>
+<body>
+	<img class="imgList" src='https://common.xxpie.com/official_website:pic_gongguan.png' style="height:288px">
+	<img class="imgList" src='https://common.xxpie.com/official_website:index:who_pic_3f_v4.png' style="height:288px">
+	<img class="imgList" src='https://common.xxpie.com/official_website:pic_graduation_v2.png' style="height:288px">
+	<!-- 看大图 -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+       
+        <img class="close_pswp" src="https://common.xxpie.com/h5:ai_close.png" onclick='closePswp()'>
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__counter" style="display: none;"></div>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+<script src="./photoswipe/photoswipe.js"></script>
+<script src="./photoswipe/photoswipe-ui-default.js"></script>
+<script>
+	let gallery = null;
+	let imgUrlS = [{
+		w:270,h:346,src:'https://common.xxpie.com/official_website:pic_gongguan.png'
+	},{
+		w:270,h:346,src:'https://common.xxpie.com/official_website:index:who_pic_3f_v4.png'
+	},{
+		w:270,h:346,src:'https://common.xxpie.com/official_website:pic_graduation_v2.png'
+	}];
+	let imgList = document.getElementsByClassName('imgList');
+	for(let i = 0 ; i < imgList.length ; i++){
+		imgList[i].addEventListener('click',function(e){
+			viewBigPhoto(i);
+		})
+	}
+	function viewBigPhoto(index){
+		let pswpElement = document.getElementsByClassName('pswp')[0];
+		let options = {
+			index: index,
+			isClickableElement: function(e) {
+				return true;
+			},
+			showHideOpacity: true,
+			pinchToClose: false,
+			loop: false,
+		};
+		gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgUrlS), options);
+		gallery.init();
+		//关闭画廊事件
+		gallery.listen('close', () => {
+			gallery = null;
+		
+		});
+		gallery.listen('afterChange', () => {
+			let index = gallery.getCurrentIndex();
+		});
+		gallery.listen('initialZoomInEnd', () => {
+			document.getElementsByClassName('pswp')[0].style.position = "absolute";
+		});
+	}
+	function closePswp(){
+		gallery.close();
+	}
+</script>	
+</body>
+</html>
