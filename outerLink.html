@@ -55,6 +55,11 @@ $(document).ready(function(){
 function print(){
     console.log('print log');
 }
+window.addEventListener('message',function(event){
+    //此处执行事件
+	let data = event.data;
+    sendImg(data.src);
+})
 function sendImg(src){
     if(src){
         $('#send').attr('src',src);
