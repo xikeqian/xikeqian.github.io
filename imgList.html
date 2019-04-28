@@ -52,6 +52,7 @@
 	let imgList = document.getElementsByClassName('imgList');
 	for(let i = 0 ; i < imgList.length ; i++){
 		imgList[i].addEventListener('click',function(e){
+			console.log('click imgList');
 			viewBigPhoto(i);
 		});
 		imgList[i].addEventListener('touchstart',function(e){
@@ -95,7 +96,7 @@
 				console.log('bigPhoto mode touchstart');
 			})
 		}
-	},
+	};
 </script>	
 </body>
 </html>
