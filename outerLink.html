@@ -23,10 +23,8 @@
 	</style>
 </head>
 <body>
-<div style="width:100%;height:100%;">
-	 <iframe id="frame" style="width:100%;height:100%;" src="http://172.16.88.136:8081/m/simpleAlbum?taskId=5c789de22e7b1d2090ee4914&from=singlemessage&isappinstalled=0"></iframe>
-    <!--<iframe id="frame" style="width:100%;height:100%;" src="./frame.html"></iframe>-->
-    <!--<iframe id='frame' src='./imgList.html' style="width:100%;height:100%;"></iframe>-->
+<div style="width:100%;height:100%;overflow:auto;">
+    <iframe id="frame" style="width:100%;height:100%;" src="http://172.16.88.136:8081/m/simpleAlbum?taskId=5c789de22e7b1d2090ee4914&from=singlemessage&isappinstalled=0"></iframe>
 	<img src="" style="opacity: 0;" id="send"/>
 </div>
 <script src="zepto.min.js"></script>
@@ -52,56 +50,57 @@ $(document).ready(function(){
 // 触发event
     // elem.dispatchEvent(event);
 });
-function print(){
-    console.log('print log');
-}
+// function print(){
+//     console.log('print log');
+// }
 window.addEventListener('message',function(event){
     //此处执行事件
 	let data = event.data;
     sendImg(data.src);
-})
+});
 function sendImg(src){
     if(src){
         $('#send').attr('src',src);
         $('#send').trigger('touchstart');
-        $('#send').trigger('click');
+        $('#send').css('display','block');
         $('#send').addClass('fixedLayout');
     }else{
         $('#send').removeClass('fixedLayout');
+        $('#send').css('display','none');
     }
 }
-var IframeOnClick = {
-    resolution: 200,
-    iframes: [],
-    interval: null,
-    Iframe: function() {
-        this.element = arguments[0];
-        this.cb = arguments[1];
-        this.hasTracked = false;
-    },
-    track: function(element, cb) {
-        this.iframes.push(new this.Iframe(element, cb));
-        if (!this.interval) {
-            var _this = this;
-            this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
-        }
-    },
-    checkClick: function() {
-        if (document.activeElement) {
-            var activeElement = document.activeElement;
-            for (var i in this.iframes) {
-                if (activeElement === this.iframes[i].element) { // user is in this Iframe
-                    if (this.iframes[i].hasTracked == false) {
-                        this.iframes[i].cb.apply(window, []);
-                        this.iframes[i].hasTracked = true;
-                    }
-                } else {
-                    this.iframes[i].hasTracked = false;
-                }
-            }
-        }
-    }
-};
+// var IframeOnClick = {
+//     resolution: 200,
+//     iframes: [],
+//     interval: null,
+//     Iframe: function() {
+//         this.element = arguments[0];
+//         this.cb = arguments[1];
+//         this.hasTracked = false;
+//     },
+//     track: function(element, cb) {
+//         this.iframes.push(new this.Iframe(element, cb));
+//         if (!this.interval) {
+//             var _this = this;
+//             this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
+//         }
+//     },
+//     checkClick: function() {
+//         if (document.activeElement) {
+//             var activeElement = document.activeElement;
+//             for (var i in this.iframes) {
+//                 if (activeElement === this.iframes[i].element) { // user is in this Iframe
+//                     if (this.iframes[i].hasTracked == false) {
+//                         this.iframes[i].cb.apply(window, []);
+//                         this.iframes[i].hasTracked = true;
+//                     }
+//                 } else {
+//                     this.iframes[i].hasTracked = false;
+//                 }
+//             }
+//         }
+//     }
+// };
 </script>
 </body>
 </html>
