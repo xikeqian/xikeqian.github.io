@@ -53,7 +53,10 @@
 	for(let i = 0 ; i < imgList.length ; i++){
 		imgList[i].addEventListener('click',function(e){
 			viewBigPhoto(i);
-		})
+		});
+		imgList[i].addEventListener('touchstart',function(e){
+			console.log('touchstart img');
+		});
 	}
 	function viewBigPhoto(index){
 		let pswpElement = document.getElementsByClassName('pswp')[0];
@@ -83,6 +86,16 @@
 	function closePswp(){
 		gallery.close();
 	}
+	function _addPreventDefaultEvents() { //  TODO：看大图时，为图片添加阻止默认事件。单击大图需要进入纯净模式，隐藏掉底部按钮
+		let odiv = document.getElementsByClassName('pswp__item');
+		odiv = [...odiv];
+		for (let index = 0; index < 3; index++) {
+			let I = odiv[index];
+			I.addEventListener('touchstart',function(){
+				console.log('bigPhoto mode touchstart');
+			})
+		}
+	},
 </script>	
 </body>
 </html>
