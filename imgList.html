@@ -99,7 +99,7 @@
 			I.addEventListener('touchstart',function(){
 				javascript:parent.sendImg('https://common.xxpie.com/official_website:pic_gongguan.png');
 				// console.log($('.pswp__item')[gallery.getCurrentIndex()]);
-				javascript:parent.$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
+				$('.pswp__item')[gallery.getCurrentIndex()].trigger('touchstart');
 			});
 		}
 	};
