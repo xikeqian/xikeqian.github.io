@@ -29,14 +29,14 @@
 $(document).ready(function(){
 	alert('loaded complete');
 	let frame = document.getElementById('frame');
-	frame.onload = function(){
-	    console.log(document.getElementById('frame').contentWindow.document);
-        document.getElementById('frame').contentWindow.document.getElementById('frameDiv').addEventListener('touchstart',function (event) {
-            this.dispatchEvent(event);
-            frame.dispatchEvent(event);
-            alert('touch frame');
-        });
-    }
+	// frame.onload = function(){
+	//     console.log(document.getElementById('frame').contentWindow.document);
+ //        document.getElementById('frame').contentWindow.document.getElementById('frameDiv').addEventListener('touchstart',function (event) {
+ //            this.dispatchEvent(event);
+ //            frame.dispatchEvent(event);
+ //            alert('touch frame');
+ //        });
+ //    }
 
  //    IframeOnClick.track(document.getElementById("frame"), function() { console.log('a click'); });
  //    $('#frame').on('touchstart',function(){
