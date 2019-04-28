@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>图片列表</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
 	<link rel="stylesheet" href="./photoswipe/photoswipe.css"/>
 </head>
 <body id='frameDiv'>
@@ -55,9 +56,9 @@
 			console.log('click imgList');
 			viewBigPhoto(i);
 		});
-		imgList[i].addEventListener('touchstart',function(e){
-			console.log('touchstart img');
-		});
+		// imgList[i].addEventListener('touchstart',function(e){
+		// 	console.log('touchstart img');
+		// });
 	}
 	function viewBigPhoto(index){
 		let pswpElement = document.getElementsByClassName('pswp')[0];
