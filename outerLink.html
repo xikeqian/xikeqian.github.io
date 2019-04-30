@@ -24,21 +24,32 @@
 </head>
 <body>
 <div style="width:100%;height:100%;overflow:auto;">
-    <iframe id="frame" style="width:100%;height:100%;" src="http://172.16.88.136:8081/m/simpleAlbum?taskId=5c789de22e7b1d2090ee4914&from=singlemessage&isappinstalled=0"></iframe>
-	<img src="" style="opacity: 0;" id="send"/>
+    <iframe id="frame" style="width:100%;height:100%;" src="https://www.xxpie.com/m/simpleAlbum?taskId=5c789de22e7b1d2090ee4914&from=singlemessage&isappinstalled=0"></iframe>
+	<img src="" style="opacity: 0;display:none;" id="send"/>
 </div>
 <script src="zepto.min.js"></script>
 <script>
 $(document).ready(function(){
-	// let frame = document.getElementById('frame');
-	// frame.onload = function(){
-	//     console.log(document.getElementById('frame').contentWindow.document);
- //        document.getElementById('frame').contentWindow.document.getElementById('frameDiv').addEventListener('touchstart',function (event) {
- //            this.dispatchEvent(event);
- //            frame.dispatchEvent(event);
- //            alert('touch frame');
- //        });
- //    }
+    window.addEventListener('message',function(event){
+        //此处执行事件
+        let data = event.data;
+        sendImg(data.src);
+    });
+    function sendImg(src){
+        if(src){
+            $('#send').attr('src',src);
+            try{
+                $('#send').trigger('touchstart');
+            }catch(err){
+                console.log(err);
+            }
+            $('#send').css('display','block');
+            $('#send').addClass('fixedLayout');
+        }else{
+            $('#send').removeClass('fixedLayout');
+            $('#send').css('display','none');
+        }
+    }
 
  //    IframeOnClick.track(document.getElementById("frame"), function() { console.log('a click'); });
  //    $('#frame').on('touchstart',function(){
@@ -53,22 +64,6 @@ $(document).ready(function(){
 // function print(){
 //     console.log('print log');
 // }
-window.addEventListener('message',function(event){
-    //此处执行事件
-	let data = event.data;
-    sendImg(data.src);
-});
-function sendImg(src){
-    if(src){
-        $('#send').attr('src',src);
-        $('#send').trigger('touchstart');
-        $('#send').css('display','block');
-        $('#send').addClass('fixedLayout');
-    }else{
-        $('#send').removeClass('fixedLayout');
-        $('#send').css('display','none');
-    }
-}
 // var IframeOnClick = {
 //     resolution: 200,
 //     iframes: [],
