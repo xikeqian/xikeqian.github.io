@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <title>滚动刷新测试</title>
+    <style>
+        html,body{
+            margin:0;
+            padding:0;
+            width:100%;
+            height:100%;
+        }
+        #app{
+            height:100%;
+        }
+        .boxing{
+            overflow: hidden;
+        }
+        .boxing, .spContainer {
+            width: 100%;
+            position: relative;
+        }
+        .spContainer {
+            background: #fff;
+        }
+        .containerDiv{
+            width:100%;
+            padding-top: 56.2%;
+            background-color: #000;
+        }
+        .live-relate{
+            z-index: 99;
+            position: relative;
+        }
+        .tab_ul {
+            margin: 0;
+            text-align: center;
+            height: 45px;
+            -webkit-box-shadow: 0 0 11px rgba(0,0,0,.22);
+            box-shadow: 0 0 11px rgba(0,0,0,.22);
+            z-index: 999999999;
+            position: fixed;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-top: 12px;
+            top: 56.2vw;
+            overflow: hidden;
+            list-style: none;
+        }
+        .ul_left {
+            left: 0;
+            background: #fff;
+        }
+        .tabCon01 {
+            position: relative;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 60px 10px;
+        }
+        .tab_ul li {
+            display: inline-block;
+            float: left;
+            zoom: 1;
+            bottom: -1px;
+            font-size: 16px;
+            line-height: 23px;
+            height: 29px;
+        }
+        menu, ol, ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .photoDiv {
+            margin-left: -10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="boxing">
+        <div class="spContainer">
+            <div class="containerDiv" id="topArea"></div>
+            <div class="live-relate">
+                <ul class="tab01 tab_ul ul_left" style="width: 100%;"><li class="active" style="width: 50%;" id="detail">
+                    详情
+                    </li><li class="" style="display: none; width: 50%;">
+                        精彩视频
+                    </li><li class="" style="display: none; width: 50%;">
+                        评价
+                    </li><li class="" style="display: none; width: 50%;">
+                        友情链接
+                    </li><li class="" style="width: 50%;" id="photo">
+                        照片直播
+                    </li><li class="" style="display: none; width: 50%;">
+                        关注
+                    </li></ul>
+                <ul class="tab01 tab_ul ul_right" style="width: 0%;"><li style="width: 100%; display: none;">
+                        详情
+                    </li><li style="width: 100%; display: none;">
+                        精彩视频
+                    </li><li style="width: 100%; display: none;">
+                        评价
+                    </li><li style="width: 100%; display: none;">
+                        友情链接
+                    </li><li style="width: 100%; display: none;">
+                        照片直播
+                    </li><li style="width: 100%; display: none;">
+                        关注
+                    </li></ul>
+                <div class="tabCon tabCon01">
+                <div class="photoDiv" style="display:none;">
+                    <iframe src="http://172.16.88.136:8081/m/simpleAlbum?taskId=5c789de22e7b1d2090ee4914&from=singlemessage&isappinstalled=0" height="300px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" name="_blank" id="bdIframe"
+                            style="background-color: transparent; z-index: -1; position: static; width: 375px; height: 391px;"></iframe>
+                    <!--<iframe src="./frame.html" height="300px" frameborder="0" scrolling="no" marginheight="0"-->
+                            <!--marginwidth="0" name="_blank" id="bdIframe" style="background-color: transparent; z-index: -1; position: static; width: 375px; height: 391px;"></iframe>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="zepto.min.js"></script>
+<script>
+$(document).ready(function () {
+    let photo = document.getElementById('photo'),detail = document.getElementById('detail');
+    let PhotoDiv = document.getElementsByClassName('photoDiv')[0];
+    photo.addEventListener('click',function(){
+        PhotoDiv.style.display='block';
+    });
+    detail.addEventListener('click',function (e) {
+        PhotoDiv.style.display='none';
+    });
+    $('#topArea').on('click',function (e) {
+        alert(JSON.stringify(e.target));
+    });
+    $('body').on('click',function (e) {
+        alert(JSON.stringify(e.target));
+    });
+    $('html').on('click',function (e) {
+        alert(e.target);
+    })
+})
+</script>
+</body>
+</html>
