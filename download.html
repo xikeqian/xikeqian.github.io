@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+	<title>测试文件下载</title>
+
+</head>
+<body>
+<a  download="test" href='https://img-original.xxpie.com/7ba38d0e5d2a5dec31e0c26df9022b4c?imageMogr2/auto-orient/quality/100&e=1563629504&token=g0Dm77-crDdqG3IpcLXoRK3eVoQvGi7zLZ77aa-M:k78P-2k8U2zS3AXNI5Tanu0gG6I='>下载</a>
+<script src="zepto.min.js"></script>
+<script src="FileSaver.js"></script>
+<script>
+	$(document).ready(function(){
+		let url = 'https://img-original.xxpie.com/7ba38d0e5d2a5dec31e0c26df9022b4c?imageMogr2/auto-orient/quality/100&e=1563629504&token=g0Dm77-crDdqG3IpcLXoRK3eVoQvGi7zLZ77aa-M:k78P-2k8U2zS3AXNI5Tanu0gG6I=';
+		$.ajax({
+			type:'GET',
+			url:url,
+			data:{},
+			contentType:false,
+			mimeType:'arrayBuffer',
+			timeout:30000,
+			success:function(data, status, xhr){
+				// console.log(status,xhr);
+				var blob = new Blob([data],{type:'image/png'});
+				var a = document.createElement('a');
+				var url = window.URL.createObjectURL(blob);
+				a.href = url;
+				a.download = 'IMG_TEST',
+				a.click();
+				// var file = new File(xhr.responseText,'IMG_TEST',{type:'image/png'});
+				// saveAs(file);
+			},
+			error:function(xhr, errorType, error){
+				console.log(xhr,errorType,error);
+			},
+
+		})
+	});
+	// var mobileCode = '15273373967'
+	
+  
+ //  var file = new File([mobileCode], "手机号.txt", { type: "text/plain;charset=utf-8" });
+ //  saveAs(file);
+
+</script>
+</body>
+</html>
