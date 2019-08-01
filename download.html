@@ -1,46 +1,39 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
-	<title>测试文件下载</title>
-
+<title> New Document </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script language="JavaScript">
+<!--
+function downLoadImage(imagePathURL){
+//如果中间IFRAME不存在，则添加
+if(!document.getElementById("_SAVEASIMAGE_TEMP_FRAME"))
+jQuery('<iframe style="display:none;" id="_SAVEASIMAGE_TEMP_FRAME" name="_SAVEASIMAGE_TEMP_FRAME" onload="_doSaveAsImage();" width="0"height="0" src="about:blank"></iframe>').appendTo("body");
+if(document.all._SAVEASIMAGE_TEMP_FRAME.src!=imagePathURL){
+//图片地址发生变化，加载图片
+document.all._SAVEASIMAGE_TEMP_FRAME.src = imagePathURL;
+}else{
+//图片地址没有变化，直接另存为
+_doSaveAsImage();
+}
+}
+function _doSaveAsImage(){
+if(document.all._SAVEASIMAGE_TEMP_FRAME.src!="about:blank")
+document.frames("_SAVEASIMAGE_TEMP_FRAME").document.execCommand("SaveAs");
+}
+//-->
+</script>
 </head>
 <body>
-<a  download="test" href='https://img-original.xxpie.com/7ba38d0e5d2a5dec31e0c26df9022b4c?imageMogr2/auto-orient/quality/100&e=1563629504&token=g0Dm77-crDdqG3IpcLXoRK3eVoQvGi7zLZ77aa-M:k78P-2k8U2zS3AXNI5Tanu0gG6I='>下载</a>
-<script src="zepto.min.js"></script>
-<script>
-	$(document).ready(function(){
-		let url = 'https://img-original.xxpie.com/7ba38d0e5d2a5dec31e0c26df9022b4c?imageMogr2/auto-orient/quality/100&e=1563629504&token=g0Dm77-crDdqG3IpcLXoRK3eVoQvGi7zLZ77aa-M:k78P-2k8U2zS3AXNI5Tanu0gG6I=';
-		$.ajax({
-			type:'GET',
-			url:url,
-			data:{},
-			contentType:false,
-			mimeType:'arrayBuffer',
-			timeout:30000,
-			success:function(data, status, xhr){
-				// console.log(status,xhr);
-				var blob = new Blob([data],{type:'image/png'});
-				var a = document.createElement('a');
-				var url = window.URL.createObjectURL(blob);
-				a.href = url;
-				a.download = 'IMG_TEST',
-				a.click();
-				// var file = new File(xhr.responseText,'IMG_TEST',{type:'image/png'});
-				// saveAs(file);
-			},
-			error:function(xhr, errorType, error){
-				console.log(xhr,errorType,error);
-			},
-
-		})
-	});
-	// var mobileCode = '15273373967'
-	
-  
- //  var file = new File([mobileCode], "手机号.txt", { type: "text/plain;charset=utf-8" });
- //  saveAs(file);
-
-</script>
+<input type="button" value="download image"
+onclick="downLoadImage('//www.jb51.net/images/logo.gif');">
 </body>
 </html>
+

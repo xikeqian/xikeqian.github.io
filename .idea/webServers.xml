@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="69547bc1-7ac7-4899-b7bb-385ccedb9c80" name="xikeqian" url="http://172.16.88.136:8080">
+      <webServer id="69547bc1-7ac7-4899-b7bb-385ccedb9c80" name="xikeqian" url="http://192.168.0.100:8080">
         <fileTransfer port="0" mountedRoot="C:\Users\Caixi\Desktop" accessType="MOUNT" />
       </webServer>
     </option>
