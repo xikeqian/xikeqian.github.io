@@ -4,6 +4,11 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 	<title>历史记录测试</title>
 	<style>
+		html,body{
+			width:100%;
+			height:100%;
+			overflow:hidden;
+		}
 		a{
 			font-size:18px;
 			font-family: PingFangSC-Regular, Verdana, Arial, '微软雅黑','宋体';
@@ -12,17 +17,109 @@
 		a:visited {color: #00FF00}  /* 已访问的链接 */
 		a:hover {color: #FF00FF}    /* 当有鼠标悬停在链接上 */
 		a:active {color: #0000FF}   /* 被选择的链接 
+
 	</style>
+	<link rel="stylesheet" href="https://common.xxpie.com/photoswipe:photoswipe.css"/>
 </head>
 <body>
 <a href='https://www.baidu.com'>百度</a>
+<img id='clickNode' src='./img/historyTest.jpg' style="height:400px;"/>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <img src="https://common.xxpie.com/h5:ai_close.png"
+         style="width: 45px;height: 45px;position: absolute;top:16px;right: 20px;z-index: 100;display:none;"
+         id='closeBigPhoto'>
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__counter" style="display: none;"></div>
+            <div class="pswp__preloader">
+                <div class="pswp__preloader__icn">
+                    <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+<script type="text/javascript" src="https://common.xxpie.com/photoswipe_v2.js"></script>
+<script type="text/javascript" src="https://common.xxpie.com/photoswipe:photoswipe-ui-default.min.js"></script>
 <script type='text/javascript' src='./zepto.min.js'></script>
 <script>
 	$(document).ready(function(){
+		//1.第一种情况
+		/*
 		window.history.pushState(null,null,'index.html');
 		$(window).on('popstate',function(){
 			// alert('popstate event listen');
+		}); 
+		*/
+		//2.第二种情况
+		let gallery = null;
+		let w, h, src, imgArrs;
+
+		$('#clickNode').on('click',function(){
+			var img = new Image();
+			img.src = $(this).attr('src');
+			img.onload = function(){
+				w = this.width;
+				h = this.height;
+				src = img.src;
+				imgArrs=[{
+					w:w,
+					h:h,
+					src:src
+				}]
+				viewBigPhoto();
+			}
 		});
+		$('#closeBigPhoto').on('click',function(){
+			if(gallery){
+				gallery.close();
+			}
+		});
+		function viewBigPhoto(){
+			let pswpElement = document.getElementsByClassName('pswp')[0];
+			let options = {
+				index:0,
+				isClickableElement:true,
+				showHideOpacity: true,
+                pinchToClose: false,
+                loop: false,
+			}
+			window.history.pushState(null,null,'#')
+			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgArrs), options);
+			gallery.init();
+            //关闭画廊事件
+            gallery.listen('close', () => {
+            	console.log('gallery lisened close event');
+            	window.history.go(-1);
+                gallery = null;
+            });
+
+            gallery.listen('afterChange', () => {
+                let index = gallery.getCurrentIndex();
+            });
+            gallery.listen('initialZoomInEnd', () => {
+                document.getElementsByClassName('pswp')[0].style.position = "absolute";
+                $('#closeBigPhoto').css('display','block');
+            })
+		}
 	})
 
 </script>	
