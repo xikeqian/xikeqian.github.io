@@ -63,11 +63,11 @@
 <script>
 	$(document).ready(function(){
 		//1.第一种情况
-		
-		window.history.pushState(null,null,'index.html');
 		$(window).on('popstate',function(){
-			// alert('popstate event listen');
+			console.log('popstate event listen');
 		}); 
+		window.history.pushState(null,null,'index.html');
+		
 		
 		//2.第二种情况
 /*
