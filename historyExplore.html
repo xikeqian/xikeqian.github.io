@@ -105,7 +105,7 @@
                 loop: false,
                 history:true,
 			}
-			window.history.pushState(null,null,'#');
+			window.history.replaceState(null,null,'#');
 			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgArrs), options);
 			gallery.init();
             //关闭画廊事件
