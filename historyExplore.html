@@ -105,13 +105,13 @@
                 loop: false,
                 history:true,
 			}
-			// window.history.pushState(null,null,'#')
+			window.history.pushState(null,null,'#');
 			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgArrs), options);
 			gallery.init();
             //关闭画廊事件
             gallery.listen('close', () => {
             	console.log('gallery lisened close event');
-            	// window.history.go(-1);
+            	window.history.go(-1);
                 gallery = null;
             });
 
