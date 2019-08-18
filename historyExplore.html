@@ -23,6 +23,13 @@
 			top:0;left:0;right:0;bottom:0;
 			z-index:2;
 			display:none;
+			-moz-user-select:none; /* Firefox私有属性 */
+		    -webkit-user-select:none; /* WebKit内核私有属性 */
+		    -ms-user-select:none; /* IE私有属性(IE10及以后) */
+		    -khtml-user-select:none; /* KHTML内核私有属性 */
+		    -o-user-select:none; /* Opera私有属性 */
+		    user-select:none; /* CSS3属性 */
+
 		}
 	</style>
 	<link rel="stylesheet" href="https://common.xxpie.com/photoswipe:photoswipe.css"/>
@@ -151,7 +158,7 @@
             gallery.listen('initialZoomInEnd', () => {
                 document.getElementsByClassName('pswp')[0].style.position = "absolute";
                 $('#closeBigPhoto').css('display','block');
-                $('img.pswp__img').on('touchstart',function(e){
+                $('div.pswp__img').on('touchstart',function(e){
                 	longQuery = setInterval(()=>{
                 		if(longClick){
 		            		$('.mask_layer').css('display','block');
@@ -164,12 +171,15 @@
 		                longClick = 1;
 		            }, 350);
                 }).on('touchmove',function(e){
-                	
+                	$('.mask_layer').css('display','none');
                 }).on('touchend',function(e){
                 	$('.mask_layer').css('display','none');
                 }).on('touchcancel',function(e){
                 	$('.mask_layer').css('display','none');
                 });
+                $(window).on('scroll',function(e){
+                	$('.mask_layer').css('display','none');
+                })
                 addPreventDefault();
             })
 		}
