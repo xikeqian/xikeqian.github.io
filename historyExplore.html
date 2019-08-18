@@ -16,18 +16,25 @@
 		a:link {color: #FF0000}     /* 未访问的链接 */
 		a:visited {color: #00FF00}  /* 已访问的链接 */
 		a:hover {color: #FF00FF}    /* 当有鼠标悬停在链接上 */
-		a:active {color: #0000FF}   /* 被选择的链接 
-
+		a:active {color: #0000FF}   /* 被选择的链接 */
+		.mask_layer{
+			display:inline-block;
+			position:absolute;
+			top:0;left:0;right:0;bottom:0;
+			z-index:2;
+			display:none;
+		}
 	</style>
 	<link rel="stylesheet" href="https://common.xxpie.com/photoswipe:photoswipe.css"/>
 </head>
 <body>
 <a href='https://www.baidu.com'>百度</a>
-<img id='clickNode' src='http://xikeqian.com/img/historyTest.JPG' style="height:400px;"/>
+<img id='clickNode' class="live_photo" src='http://xikeqian.com/img/historyTest.JPG' style="height:300px;-webkit-touch-callout:none;user-select: none"/>
 
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
     <img src="https://common.xxpie.com/h5:ai_close.png"
-         style="width: 45px;height: 45px;position: absolute;top:16px;right: 20px;z-index: 100;display:none;"
+         style="width: 45px;height: 45px;position: absolute;top:16px;right: 20px;z-index: 100;
+            display:none;"
          id='closeBigPhoto'>
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
@@ -53,7 +60,7 @@
             </div>
         </div>
     </div>
-   
+    <span class=mask_layer></span>
 </div>
 
 
@@ -67,7 +74,21 @@
 			console.log('popstate event listen');
 		}); 
 		// window.history.pushState(null,null,'index.html');
-		
+		let util = {},longClick = 0, longQuery = null;
+		util.addEventListener = document.addEventListener ?
+			function (elem, type, listener, useCapture) {
+				elem.addEventListener(type, listener, useCapture);
+			} :
+			function (elem, type, listener, useCapture) {
+				elem.attachEvent('on' + type, listener, useCapture);
+			};
+		util.removeEventListener = document.removeEventListener ?
+			function (elem, type, listener, useCapture) {
+				elem.removeEventListener(type, listener, useCapture);
+			} :
+			function (elem, type, listener, useCapture) {
+				elem.detachEvent('on' + type, listener, useCapture);
+			};
 		
 		//2.第二种情况
 
@@ -99,11 +120,20 @@
 			let pswpElement = document.getElementsByClassName('pswp')[0];
 			let options = {
 				index:0,
-				isClickableElement:true,
+				isClickableElement:(e)=>{
+					return true;
+				},
 				showHideOpacity: true,
                 pinchToClose: false,
                 loop: false,
                 history:true,
+                getThumbBoundsFn: (index) => {
+                    //  获取打开大图或者关闭大图时动画的位置信息
+                    let thumbnail = document.getElementsByClassName('live_photo')[0];
+                    let pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    let rect = thumbnail.getBoundingClientRect();
+                    return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                },
 			}
 			window.history.replaceState(null,null,'#');
 			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgArrs), options);
@@ -121,8 +151,57 @@
             gallery.listen('initialZoomInEnd', () => {
                 document.getElementsByClassName('pswp')[0].style.position = "absolute";
                 $('#closeBigPhoto').css('display','block');
+                $('img.pswp__img').on('touchstart',function(e){
+                	longQuery = setInterval(()=>{
+                		if(longClick){
+		            		$('.mask_layer').css('display','block');
+		            		longClick = 0;
+		            		clearInterval(longQuery);
+		            		longQuery = null;
+                		}
+                	},100);
+                	setTimeout(() => {
+		                longClick = 1;
+		            }, 350);
+                }).on('touchmove',function(e){
+                	
+                }).on('touchend',function(e){
+                	$('.mask_layer').css('display','none');
+                }).on('touchcancel',function(e){
+                	$('.mask_layer').css('display','none');
+                });
+                addPreventDefault();
             })
 		}
+		function addPreventDefault(){
+			let odiv = document.getElementsByClassName('pswp__item');
+            odiv = [...odiv];
+            for (let index = 0; index < 3; index++) {
+                let I = odiv[index];
+                let classArr = I.className.split(' ');
+                if (classArr.length === 1) {
+                    I.className += ' prohibitionTouch';
+                }
+                //用处？
+                util.removeEventListener(I, 'touchstart', _setBottomButShow);
+                util.addEventListener(I, 'touchstart', _setBottomButShow);
+                util.removeEventListener(I, 'touchmove', _preventButShow);
+                util.addEventListener(I, 'touchmove', _preventButShow);
+                util.removeEventListener(I, 'touchend',  _preventDefault);
+                util.addEventListener(I, 'touchend', _preventDefault);
+            }
+		}
+		function _setBottomButShow(event) {
+            let e = event || window.event;
+        }
+        function _preventButShow(event) {
+            let e = event || window.event;
+            e.preventDefault();
+        }
+        function _preventDefault(event) {
+            let e = event || window.event;
+            e.preventDefault();
+        }
 	})
 
 </script>	
