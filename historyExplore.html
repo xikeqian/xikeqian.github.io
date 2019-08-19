@@ -22,7 +22,6 @@
 			position:absolute;
 			top:0;left:0;right:0;bottom:0;
 			z-index:2001;
-			display:none;
 			-moz-user-select:none; /* Firefox私有属性 */
 		    -webkit-user-select:none; /* WebKit内核私有属性 */
 		    -ms-user-select:none; /* IE私有属性(IE10及以后) */
@@ -67,7 +66,7 @@
             </div>
         </div>
     </div>
-    <span class=mask_layer></span>
+    <span class="mask_layer" style="display:none;"></span>
 </div>
 
 
@@ -169,7 +168,8 @@
                 	},100);
                 	setTimeout(() => {
 		                longClick = 1;
-		            }, 350);
+		                console.log('long click is true');
+		            }, 100);
                 }).on('touchmove',function(e){
                 	$('.mask_layer').css('display','none');
                 }).on('touchend',function(e){
