@@ -200,7 +200,7 @@
 		            }, 100);
                 }).on('touchmove',function(e){
                 	var toast = $('.toast');
-		            toast.css('display','inline-block').html('滑动');
+		            toast.css('display','inline-block').html('滑动触发');
 		            setTimeout(function(){
 		                toast.css('display','none').html('');
 		            },1500);
@@ -208,6 +208,11 @@
                 }).on('touchend',function(e){
                 	$('.mask_layer').css('display','none');
                 }).on('touchcancel',function(e){
+                	var toast = $('.toast');
+		            toast.css('display','inline-block').html('滑动取消');
+		            setTimeout(function(){
+		                toast.css('display','none').html('');
+		            },1500);
                 	$('.mask_layer').css('display','none');
                 });
                 $(window).on('scroll',function(e){
