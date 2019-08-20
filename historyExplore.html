@@ -95,6 +95,10 @@
 			function (elem, type, listener, useCapture) {
 				elem.detachEvent('on' + type, listener, useCapture);
 			};
+		util.isWeChat = () => {// 判断是否是微信浏览器
+		    let ua = navigator.userAgent.toLowerCase() || '';
+		    return ua.indexOf('micromessenger') !== -1;
+		};
 		
 		//2.第二种情况
 
@@ -141,13 +145,17 @@
                     return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
                 },
 			}
-			window.history.replaceState(null,null,'#');
+			if(util.isWeChat()){
+				window.history.replaceState(null,null,'#');
+			}
 			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [].concat(imgArrs), options);
 			gallery.init();
             //关闭画廊事件
             gallery.listen('close', () => {
             	console.log('gallery lisened close event');
-            	window.history.go(-1);
+            	if(util.isWeChat()){
+            		window.history.go(-1);
+            	}
                 gallery = null;
             });
 
@@ -157,7 +165,7 @@
             gallery.listen('initialZoomInEnd', () => {
                 document.getElementsByClassName('pswp')[0].style.position = "absolute";
                 $('#closeBigPhoto').css('display','block');
-                $('div.pswp__img').on('touchstart',function(e){
+                $('div.pswp__item').on('touchstart',function(e){
                 	longQuery = setInterval(()=>{
                 		if(longClick){
 		            		$('.mask_layer').css('display','block');
