@@ -30,6 +30,25 @@
 		    user-select:none; /* CSS3属性 */
 
 		}
+		.toast{
+            display:none;
+            position: fixed;
+            padding: 10px 20px;
+            text-align: center;
+            background:rgba(0,0,0,0.9);
+            left:50%;
+            top:50%;
+            font-size:15px;
+            color:#fff;
+            white-space: nowrap;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            z-index:202;
+            border-radius:5px;
+        }
 	</style>
 	<link rel="stylesheet" href="https://common.xxpie.com/photoswipe:photoswipe.css"/>
 </head>
@@ -68,7 +87,8 @@
     </div>
     <span class="mask_layer" style="display:none;"></span>
 </div>
-
+<div class="toast">
+</div>
 
 <script type="text/javascript" src="https://common.xxpie.com/photoswipe_v2.js"></script>
 <script type="text/javascript" src="https://common.xxpie.com/photoswipe:photoswipe-ui-default.min.js"></script>
@@ -179,6 +199,11 @@
 		                console.log('long click is true');
 		            }, 100);
                 }).on('touchmove',function(e){
+                	var toast = $('.toast');
+		            toast.css('display','inline-block').html('滑动');
+		            setTimeout(function(){
+		                toast.css('display','none').html('');
+		            },1500);
                 	$('.mask_layer').css('display','none');
                 }).on('touchend',function(e){
                 	$('.mask_layer').css('display','none');
