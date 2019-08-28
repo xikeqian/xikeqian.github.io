@@ -44,6 +44,12 @@
         }).on('waiting',function(e){
             console.timeEnd();
             console.log('waiting data return');
+        }).on('abort',function(e){
+            console.log('client abort download');
+        }).on('suspend',function(e){
+            console.log('suspend download')
+        }).on('stalled',function(e){
+            console.log('stalled ')
         })
     });
 </script>
