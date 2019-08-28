@@ -39,6 +39,7 @@
         }).on('pause',function(e){
             console.log('video is paused');
         }).on('error',function(e){
+            console.timeEnd();
             console.log('video played error');
         }).on('waiting',function(e){
             console.timeEnd();
