@@ -13,14 +13,13 @@
             overflow: hidden;
         }
     </style>
-    <link href="http://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
 </head>
 
 <body>
-    <video v-show="videoIsPlaying" id="album_video" controls="controls"
-        style="height: 210px;" onwaiting="videoPlaying()"
-        onended="videoEnded()" @pause="videoPause()" @play="videoPlay()" controlslist="nodownload"
-        :src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" playsinline="" webkit-playsinline=""
+    <video id="album_video" controls="controls"
+        style="height: 210px;"
+        controlslist="nodownload"
+        src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" playsinline="" webkit-playsinline=""
         x5-playsinline="" x5-video-player-fullscreen="true" x5-video-orientation="landscape" x-webkit-airplay="true">
         <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/mp4" />
         <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/ogg" />
