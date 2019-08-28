@@ -20,13 +20,13 @@
     <video v-show="videoIsPlaying" id="album_video" controls="controls"
         style="height: 210px;" onwaiting="videoPlaying()"
         onended="videoEnded()" @pause="videoPause()" @play="videoPlay()" controlslist="nodownload"
-        :src="shootTask.video.live_stream_url || shootTask.video.url" playsinline="" webkit-playsinline=""
+        :src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" playsinline="" webkit-playsinline=""
         x5-playsinline="" x5-video-player-fullscreen="true" x5-video-orientation="landscape" x-webkit-airplay="true">
-        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/mp4" />
-        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/ogg" />
-        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/WebM" />
-        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/avi" />
-        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="application/x-mpegURL" />
+        <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/mp4" />
+        <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/ogg" />
+        <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/WebM" />
+        <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="video/avi" />
+        <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8" type="application/x-mpegURL" />
     </video>
 <script src='./zepto.min.js'></script>
 <script>
