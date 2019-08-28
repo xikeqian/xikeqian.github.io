@@ -30,15 +30,19 @@
 <script src='./zepto.min.js'></script>
 <script>
     $(document).ready(function(e){
+        console.time();
         var video = $('video');
         video.on('loadstart',function(e){
-            alert('client is loading data');
+            console.log('client is loading data');
         }).on('play',function(e){
-            alert(' video is playing');
+            console.log(' video is playing');
         }).on('pause',function(e){
-            alert('video is paused');
+            console.log('video is paused');
         }).on('error',function(e){
-            alert('video played error');
+            console.log('video played error');
+        }).on('waiting',function(e){
+            console.timeEnd();
+            console.log('waiting data return');
         })
     });
 </script>
