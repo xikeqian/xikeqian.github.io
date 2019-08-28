@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-	<title>历史记录测试</title>
-	<style>
-		html,body{
-			width:100%;
-			height:100%;
-			overflow:hidden;
-		}
-	</style>
-	<link href="http://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>历史记录测试</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <link href="http://vjs.zencdn.net/5.5.3/video-js.css" rel="stylesheet">
 </head>
+
 <body>
-
-<video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-  data-setup="{}">
-    <!-- <source src="MY_VIDEO.mp4" type='video/mp4'> -->
-    <source src="rtmp://live.hkstv.hk.lxdns.com/live/hks2" type='rtmp/vlc'>
-    <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a web browser that
-      <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-    </p>
-  </video>
-<script src="http://vjs.zencdn.net/5.5.3/video.js"></script>
-
-<!-- <script>
-	//初始化视频
-	let player = videojs('container',{
-	  //像data-setup那样设置的参数
-	},function onPlayerReady(){
-	  //视频播放器初始化完毕，就会调用这个回调函数
-	  this.src({
-	    src: "http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8",
-	    type:'rtmp/flv'
-	  });
-	});
-
-	player.load();
-	player.play();
-
-</script> -->
-
+    <video v-show="videoIsPlaying" id="album_video" controls="controls"
+        style="height: 210px;" onwaiting="videoPlaying()"
+        onended="videoEnded()" @pause="videoPause()" @play="videoPlay()" controlslist="nodownload"
+        :src="shootTask.video.live_stream_url || shootTask.video.url" playsinline="" webkit-playsinline=""
+        x5-playsinline="" x5-video-player-fullscreen="true" x5-video-orientation="landscape" x-webkit-airplay="true">
+        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/mp4" />
+        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/ogg" />
+        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/WebM" />
+        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="video/avi" />
+        <source :src="shootTask.video.live_stream_url || shootTask.video.url" type="application/x-mpegURL" />
+    </video>
+<script src='./zepto.min.js'></script>
+<script>
+    $(document).ready(function(e){
+        var video = $('video');
+        video.on('loadstart',function(e){
+            alert('client is loading data');
+        }).on('play',function(e){
+            alert(' video is playing');
+        }).on('pause',function(e){
+            alert('video is paused');
+        }).on('error',function(e){
+            alert('video played error');
+        })
+    });
+</script>
 </body>
+
 </html>
