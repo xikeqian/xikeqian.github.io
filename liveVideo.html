@@ -30,7 +30,7 @@
 <script src='./zepto.min.js'></script>
 <script>
     $(document).ready(function(e){
-        console.time();
+        var curTime = new Date().getTime();
         var video = $('video');
         video.on('loadstart',function(e){
             console.log('client is loading data');
@@ -39,7 +39,7 @@
         }).on('pause',function(e){
             console.log('video is paused');
         }).on('error',function(e){
-            console.timeEnd();
+            console.log(new Date().getTime() - curTime);
             console.log('video played error');
         }).on('waiting',function(e){
             console.timeEnd();
