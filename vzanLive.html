@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>video.js</title>
+    <!-- <link href="https://unpkg.com/video.js@6.11.0/dist/video-js.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://unpkg.com/video.js@6.11.0/dist/video.js"></script> -->
+    <!-- <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script> -->
+    <!-- <script src='main.js'></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script type="text/javascript">eruda.init();</script>
+    <script type='text/javascript' src='zepto.min.js'></script>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        .videoPoster {
+            position: absolute;
+            background: #222;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .albumVideoPlay {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            z-index: 201;
+        }
+
+        .albumVideoPlay>span {
+            display: inline-block;
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            line-height: 20px;
+            font-size: 14px;
+            color: #fff;
+            white-space: nowrap;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+
+        .hiddenElement {
+            background:#ff0022;
+            width: 100%;
+            height: 100%;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .videoContainer{
+            width:100%;
+            height: 202px;
+            top: 0px;
+            background:#222;
+        }
+        .videoContainer video{
+            width:100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="videoPlayer" style="font-size: 0px; width: 100%; object-fit: fill;">
+        <div id="aodianplayer_uid_base1"></div>hlsUrl地址未传递
+    </div> -->
+    <div style="width:100%;height:100%;">
+        <div style='height:202px;position:relative;'>
+            <div class="videoContainer">
+
+            </div>
+            <div class='videoPoster'>
+                <div class="albumVideoPlay">
+                    <img src="https://common.xxpie.com/h5:album_video_play_1.png" style="width: 100%;">
+                    <span>点击播放视频</span>
+                </div>
+            </div>
+            <div class='hiddenElement'></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            var videoContent = "<video id='liveVideo' x5-video-player-type='true' x5-video-player-fullscreen='true'\n"+
+                "playsinline webkit-inline  webkit-playsinline preload='auto' controlslist='nodownload' type='application/x-mpegURL' \n"+
+                "src='http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8'></video>";
+            var video = $(videoContent);
+            video.appendTo($('.videoContainer'));
+            var player = document.getElementById('liveVideo'), playStateJudge;
+            var start,end;
+            $('.hiddenElement').on('click', function () {
+                console.log('click event trigger');
+                $('video').attr('src','http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8');
+                var promise = player.play();
+                if (promise !== undefined) {
+                    promise.then(res => {
+                        console.log(res);
+                        // Autoplay started!
+                    }).catch(error => {
+                        player.play();
+                        console.log(error);
+                        // Autoplay was prevented.
+                        // Show a "Play" button so that user can start playback.
+                    });
+                }
+                // $('.hiddenElement').unbind('click');
+                // setTimeout(function () {
+                //     player.play();
+                // });
+                $('.videoPoster').hide();
+                $('#liveVideo').show();
+            })
+            $('.albumVideoPlay').on('click', function (e) {
+                var canPlay = false;
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://int2.xxpie.com/api/pm/getAlbumBannerVideoLiveOnlineInfo',
+                    data: {
+                        album_id: '5d71bc94f9da7a487ce75934'
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        canPlay = true;
+                    },
+                    error: function () {
+
+                    },
+                })
+                var queryState = setInterval(function () {
+                    if (canPlay) {
+                        clearInterval(queryState);
+                        setTimeout(function(){
+                            $('.hiddenElement').click();
+                        });
+                        // player = document.getElementById('liveVideo');
+                        // player.play();
+                    }
+                }, 200)
+                // player = document.getElementById('liveVideo');
+                // player.play();
+            });
+
+            player.addEventListener('pause', function (e) {
+                console.log('live pause');
+                $('.videoPoster').show();
+                $('#liveVideo').hide();
+            });
+            player.addEventListener('loadstart', function (e) {
+                console.log('video is loadstart');
+            });
+            player.addEventListener('progress', function (e) {
+                console.log('video is progress');
+            });
+            player.addEventListener('suspend', function (e) {
+                console.log('video is suspend');
+            });
+            player.addEventListener('abort', function (e) {
+                console.log('video is abort');
+            });
+            player.addEventListener('error', function (e) {
+                console.log('video is error');
+                $('.videoPoster').show();
+                $('#liveVideo').hide();
+            });
+            player.addEventListener('stalled', function (e) {
+                console.log('video is stalled');
+            });
+            player.addEventListener('loadedmetadata', function (e) {
+                console.log('video is loadedmetadata');
+            });
+            player.addEventListener('loadeddata', function (e) {
+                console.log('video is loadeddata');
+            });
+            player.addEventListener('waiting', function (e) {
+                console.log('video is waiting');
+            });
+            player.addEventListener('playing', function (e) {
+                console.log('video is playing');
+            });
+            player.addEventListener('canplay', function (e) {
+                console.log('video is canplay');
+            });
+            player.addEventListener('canplaythrough', function (e) {
+                console.log('video is canplaythrough');
+            });
+            player.addEventListener('seeking', function (e) {
+                console.log('video is seeking');
+            });
+            player.addEventListener('seeked', function (e) {
+                console.log('video is seeked');
+            });
+            player.addEventListener('timeupdate', function (e) {
+                console.log('video is timeupdate');
+                clearTimeout(playStateJudge);
+                playStateJudge = setTimeout(function (e) {
+                    player.pause();
+                }, 30000);
+            });
+            player.addEventListener('ended', function (e) {
+                console.log('video is ended');
+            });
+            player.addEventListener('durationchange', function (e) {
+                console.log('video is durationchange');
+            });
+        })
+
+    </script>
+</body>
+
+</html>
+
+<!-- $(document).ready(function () {
+    const windowW = window.innerWidth || document.body.clientWidth;
+    const windowH = window.innerHeight || document.body.clientHeight;
+    var playerEle = document.getElementById('liveVideo');
+    var dplayerpc = null;
+    window.liveStatus = 'notsignal';//beginning
+    var outsetAd = { "payingtimetype": 0, "nopaytimetype": 0, "isskip": false, "videolink": "", "isOpen": true };
+    var pauseAd = { "payingtimetype": 0, "isskip": false, "videolink": "", "isOpen": false };
+    var hlsUrl = 'http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8';
+    var liveinfo = {
+        livestatus: window.liveStatus,
+        status: 1,
+        roomTplName: 'EntTVChat',
+        cover: 'https://j.vzan.cc/zhibo/livecontent/content/images/ao_bg.jpg?v=637026900801006377',
+        playurl: hlsUrl,
+        playbackurl: '',//实时回放地址
+        topicTplName: 'EntTVChat',
+        outsetAd: outsetAd,
+        pauseAd: pauseAd,
+        tpid: '1206182160',
+        modeltype: 2,
+        isScreen: '1',
+        rightTopWatermark: '',
+        limitFreeViewTimes: 0
+    };
+    $(function () {
+        if (true) {
+            function InitVideo() {
+                if (liveVideoInit) {
+                    dplayerpc = new liveVideoInit({
+                        container: 'videoPlayer',//播放器容器ID，必要参数
+                        hlsUrl: hlsUrl,//控制台开通的APP hls地址，必要参数
+                        /* 以下为可选参数*/
+                        width: "100%",//播放器宽度，可用数字、百分比等
+                        height: "auto",//播放器高度，可用数字、百分比等
+                        autostart: true,//是否自动播放，默认为false
+                        controlbardisplay: 'enable',//是否显示控制栏，值为：disable、enable默认为disable。
+                        adveDeAddr: 'https://j.vzan.cc/zhibo/livecontent/content/images/ao_bg.jpg?v=637026900801006377',//封面图片链接
+                        adveWidth: "100%",//封面图宽度
+                        adveHeight: "100%",//封面图高度
+                        //adveReAddr: '', //封面图点击链接
+                    }, liveinfo);
+                } else {
+                    setTimeout(InitVideo, 300);
+                }
+            }
+            InitVideo();
+        }
+    }); -->

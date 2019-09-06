@@ -3,12 +3,21 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
     <title>video.js</title>
     <link href="https://unpkg.com/video.js@6.11.0/dist/video-js.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/video.js@6.11.0/dist/video.min.js"></script>
+    <script src="https://unpkg.com/video.js@6.11.0/dist/video.js"></script>
     <!-- <script src="https://unpkg.com/videojs-flash/dist/videojs-flash.js"></script> -->
     <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
     <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
         .vjs-paused .vjs-big-play-button,
         .vjs-paused.vjs-has-started .vjs-big-play-button {
             display: block;
@@ -47,71 +56,128 @@
 </head>
 
 <body>
-    <video id="my-player" class="video-js vjs-big-play-centered" controls>
+    <video onerror='loadError' id="my-player" class="video-js vjs-big-play-centered" controls controlslist="nodownload"
+        playsinline="" webkit-playsinline="" x5-playsinline="" x5-video-player-fullscreen="true"
+        x5-video-orientation="landscape" x-webkit-airplay="true" style='display:none;'>
         <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8"
             type="application/x-mpegURL">
         <p class="vjs-no-js">
             not support
         </p>
     </video>
+    <button id='btn'>click button</button>
+    <button id='createVideo'>create video</button>
     <script type="text/javascript">
-        var queryCurrentTime = null;
-        var player = videojs('my-player', {
-            width: 400,
-            height: 200,
-            autoplay: false,
-            preload: false,
-            plugins: {
-                reloadSourceOnError: {}
-            },
-            hls: {
-                withCredentials: true
-            }
-        });
-        player.on('error',function(e){
-            console.log('error event');
-        });
-        player.on('play', function (e) {
-            console.log('listened play event');
-        });
-        player.on('pause', function (e) {
-            console.log('listened pause event');
-        });
-        player.on('send', function (e) {
-            console.log('listened data send event');
-        });
-        player.on('loadeddata', function (e) {
-            console.log('listened loaded data event');
-        });
-        player.on('durationchange', function (e) {
-            console.log('listened durationchange event');
+        const windowW = window.innerWidth || document.body.clientWidth;
+        const windowH = window.innerHeight || document.body.clientHeight;
+        var queryCurrentTime = null, oldTime = 0;
+        document.getElementById('createVideo').addEventListener('click', function () {
+            document.getElementById('my-player').style.display = 'block';
+            videojs('my-player', {
+                width: windowW,
+                height: parseInt((windowW * 9) / 16),
+                autoplay: false,
+                preload: false,
+                plugins: {
+                    reloadSourceOnError: {}
+                },
+                hls: {
+                    withCredentials: true
+                }
+            }).ready(function (e) {
+                player = this;
+                player.play();
+                player.reloadSourceOnError({
+
+                    // getSource allows you to reload the source object after an error
+                    getSource: (reload) => {
+                        console.log('Perform any auth renewal / asset URL regeneration here ');
+
+                        /* Call reload() with a fresh source object, asynchronously if you
+                         * want (but the error dialog will show up while you're waiting) */
+                        reload({
+                            src: 'http://pili-live-hls.live.xxpie.com/xxpievideolive/5d64a54354e0af413231a4b1.m3u8',
+                            type: 'application/x-mpegURL'
+                        });
+                    },
+
+                    /* Minimum amount of seconds that must pass before another reload
+                     * will be attempted, stops cascading errors */
+                    errorInterval: 5
+                });
+
+                createError = function (e) {
+                    // console.log('trigger error');
+                    // player.error({ code: '2' });
+                    player.load();
+                    player.play();
+                }
+                window.player = player;
+                document.getElementById('btn').addEventListener('click', createError);
+                // player.tech_.on("retryplaylist",function(e){
+                //     console.log(player.networkState());
+                //     console.log(player.readyState());
+                //     console.log('retryplaylist');
+                //     // if(player.readyState() == 0){
+                //     //     player.load();
+                //     //     player.play();
+                //     // } 
+                // })
+                player.on('error', function (e) {
+                    console.log('error event');
+                });
+                player.on('play', function (e) {
+                    console.log('listened play event');
+                });
+                player.on('pause', function (e) {
+                    console.log('listened pause event');
+                });
+
+                player.on('loadeddata', function (e) {
+                    console.log('listened loaded data event');
+                });
+
+                player.on('timeupdate', function (e) {
+                    var that = this;
+                    console.log('listened timeupdate event');
+                    console.log(that.currentTime());
+                    clearTimeout(queryCurrentTime);
+                    queryCurrentTime = setTimeout(function (e) {
+                        oldLiveTime = parseInt(player.currentTime());
+
+                        if (parseInt(that.currentTime()) === oldLiveTime) {
+                            console.log('live video interrupt');
+                            return;
+                        }
+                    }, 3000)
+                });
+                player.on('usage', function (e) {
+                    console.log('hls-error-reload', e);
+                });
+                player.off('timeupdate', function () {
+                    console.log('off----------')
+                })
+                videojs.Hls.xhr.beforeRequest = function (e) {
+                    if( player && oldTime === player.currentTime()){
+                        console.log('dispose videojs instance');
+                        player = null;
+                        return;
+                    }
+                    // oldTime = parseInt(player.currentTime());
+                    // console.log('hls beforeRequest event');
+                    // console.log(player.currentTime());
+                }
+            });
         })
-        player.on('timeupdate', function (e) {
-            var that = this;
-            clearTimeout(queryCurrentTime);
-            queryCurrentTime = setTimeout(function(e){
-                console.log('listened timeupdate event');
-                console.log(that.currentTime());
-            },1000)
-        });
-        player.reloadSourceOnError();
-        console.log( player.reloadSourceOnError);
-        player.on('usage',function(e){
-            console.log('hls-error-reload',e);
-        });
-        player.off('timeupdate', function () {
-            console.log('off----------')
-        })
-    
-        // videojs.Hls.xhr.beforeRequest = function (e) {
-        //     console.log('hls beforeRequest event');
-        //     console.log(player.currentTime());
-        // }
+
+
+
+
         // videojs.Hls.xhr.afterRequest = function (e) {
         //     console.log('hls afterRequest event');
         //     console.log(player.currentTime());
         // }
-        
+
         // var Hls = null;
         // setTimeout(function (e) {
         //     Hls = player.hls;
@@ -119,11 +185,11 @@
         //         console.log('ddd');
         //     })
         // }, 10000);
-        
+
         // window.player = player;
-        // function loadError() {
-        //     console.log('listened load error event');
-        // }
+        function loadError() {
+            console.log('listened load error event');
+        }
     </script>
 </body>
 
