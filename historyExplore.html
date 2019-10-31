@@ -209,41 +209,6 @@
             });
             gallery.listen('initialZoomInEnd', () => {
                 document.getElementsByClassName('pswp')[0].style.position = "absolute";
-                $('#closeBigPhoto').css('display','block');
-                $('div.pswp__item').on('touchstart',function(e){
-                	longQuery = setInterval(()=>{
-                		if(longClick){
-		            		$('.mask_layer').css('display','block');
-		            		longClick = 0;
-		            		clearInterval(longQuery);
-		            		longQuery = null;
-                		}
-                	},100);
-                	setTimeout(() => {
-		                longClick = 1;
-		                console.log('long click is true');
-		            }, 100);
-                }).on('touchmove',function(e){
-                	var toast = $('.toast');
-		            toast.css('display','inline-block').html('滑动触发');
-		            setTimeout(function(){
-		                toast.css('display','none').html('');
-		            },1500);
-                	//$('.mask_layer').css('display','none');
-                }).on('touchend',function(e){
-                	$('.mask_layer').css('display','none');
-                }).on('touchcancel',function(e){
-                	var toast = $('.toast');
-		            toast.css('display','inline-block').html('滑动取消');
-		            setTimeout(function(){
-		                toast.css('display','none').html('');
-		            },1500);
-                	$('.mask_layer').css('display','none');
-                });
-                $(window).on('scroll',function(e){
-                	$('.mask_layer').css('display','none');
-                })
-                addPreventDefault();
             })
 		}
 		function addPreventDefault(){
