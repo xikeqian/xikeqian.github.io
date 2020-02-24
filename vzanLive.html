@@ -55,60 +55,67 @@
         }
 
         .hiddenElement {
-            background:#ff0022;
             width: 100%;
             height: 100%;
-            position:absolute;
-            top:0;
-            left:0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ff0;
+            display: none;
         }
-        .videoContainer{
-            width:100%;
+
+        .videoContainer {
+            width: 100%;
             height: 202px;
             top: 0px;
-            background:#222;
+            background: #222;
         }
-        .videoContainer video{
-            width:100%;
+
+        .videoContainer video {
+            width: 100%;
             height: 100%;
         }
     </style>
 </head>
 
 <body>
-    <!-- <div id="videoPlayer" style="font-size: 0px; width: 100%; object-fit: fill;">
-        <div id="aodianplayer_uid_base1"></div>hlsUrl地址未传递
-    </div> -->
     <div style="width:100%;height:100%;">
         <div style='height:202px;position:relative;'>
             <div class="videoContainer">
-
+                <video id="liveVideo" controls controlslist="nodownload"
+                    playsinline="" webkit-playsinline="" x5-playsinline="" x5-video-player-fullscreen="true"
+                    x5-video-orientation="landscape" x-webkit-airplay="true" style='display:none;'>
+                    <source src="http://pili-live-hls.live.xxpie.com/xxpievideolive/5d71bc9bf9da7a487ce75935@480p.m3u8"
+                        type="application/x-mpegURL">
+                </video>
             </div>
+            <div class='hiddenElement'></div>
             <div class='videoPoster'>
                 <div class="albumVideoPlay">
                     <img src="https://common.xxpie.com/h5:album_video_play_1.png" style="width: 100%;">
                     <span>点击播放视频</span>
                 </div>
             </div>
-            <div class='hiddenElement'></div>
         </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function (e) {
-            var videoContent = "<video id='liveVideo' x5-video-player-type='true' x5-video-player-fullscreen='true'\n"+
-                "playsinline webkit-inline  webkit-playsinline preload='auto' controlslist='nodownload' type='application/x-mpegURL' \n"+
-                "src='http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8'></video>";
-            var video = $(videoContent);
-            video.appendTo($('.videoContainer'));
-            var player = document.getElementById('liveVideo'), playStateJudge;
-            var start,end;
+            // var videoContent = "<video id='liveVideo' x5-video-player-type='true' x5-video-player-fullscreen='true'\n" +
+            //     "playsinline='' webkit-playsinline='true' x5-playsinline='true'" +
+            //     " x5-video-orientation='landscape' x-webkit-airplay='true' preload='auto' controlslist='nodownload' type='application/x-mpegURL' \n" +
+            //     "src='http://pili-live-hls.live.xxpie.com/xxpievideolive/5d71bc9bf9da7a487ce75935@480p.m3u8'></video>";
+            // var video = $(videoContent);
+            // video.appendTo($('.videoContainer'));
+            var player = document.getElementById('liveVideo'), playStateJudge, delayPause = false;
+            var start, end;
             $('.hiddenElement').on('click', function () {
                 console.log('click event trigger');
-                $('video').attr('src','http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8');
+                // $('video').attr('src', 'http://pili-live-hls.live.xxpie.com/xxpievideolive/5d6cc69df633df13b77068b7@480p.m3u8');
+                player.load();
                 var promise = player.play();
                 if (promise !== undefined) {
                     promise.then(res => {
-                        console.log(res);
+                        console.log('resolve',res);
                         // Autoplay started!
                     }).catch(error => {
                         player.play();
@@ -116,12 +123,9 @@
                         // Autoplay was prevented.
                         // Show a "Play" button so that user can start playback.
                     });
+                
                 }
-                // $('.hiddenElement').unbind('click');
-                // setTimeout(function () {
-                //     player.play();
-                // });
-                $('.videoPoster').hide();
+                $('.hideElement').hide();
                 $('#liveVideo').show();
             })
             $('.albumVideoPlay').on('click', function (e) {
@@ -134,7 +138,13 @@
                     },
                     success: function (data) {
                         console.log(data);
-                        canPlay = true;
+                        if(data.result.online_number < 1){
+                            canPlay = true;
+                            // $('#liveVideo').attr('src','http://pili-live-hls.live.xxpie.com/xxpievideolive/5d71bc9bf9da7a487ce75935@480p.m3u8');
+                        }else{
+                            player.pause();
+                        }
+
                     },
                     error: function () {
 
@@ -143,15 +153,12 @@
                 var queryState = setInterval(function () {
                     if (canPlay) {
                         clearInterval(queryState);
-                        setTimeout(function(){
-                            $('.hiddenElement').click();
-                        });
-                        // player = document.getElementById('liveVideo');
-                        // player.play();
+                        $('.videoPoster').hide();
+                        $('.hideElement').show();
+                        $('.hiddenElement').click();
                     }
                 }, 200)
-                // player = document.getElementById('liveVideo');
-                // player.play();
+                player.play();
             });
 
             player.addEventListener('pause', function (e) {

@@ -60,6 +60,7 @@
             background: black;
             background-clip: padding-box;
             padding: 10px;
+            display: none;
 
         }
         .gradient_background::after{
@@ -74,12 +75,27 @@
             border-radius:50%;
 
         }
+        .live_photo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            /* -webkit-touch-callout: none; */
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-text-size-adjust: 100%;
+            user-select: none;
+        }
 	</style>
-	<link rel="stylesheet" href="https://common.xxpie.com/photoswipe:photoswipe.css"/>
+	<link rel="stylesheet" href="./photoswipe.css"/>
 </head>
 <body>
 <a href='https://www.baidu.com'>百度</a>
-<img id='clickNode' class="live_photo" src='http://xikeqian.com/img/historyTest.JPG' style="height:300px;-webkit-touch-callout:none;user-select: none"/>
+<img id='clickNode' class="live_photo" src='http://xikeqian.com/img/historyTest.JPG' style="height:300px;"/>
 <div class='gradient_background'></div>
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
     <img src="https://common.xxpie.com/h5:ai_close.png"
@@ -110,7 +126,6 @@
             </div>
         </div>
     </div>
-    <span class="mask_layer" style="display:none;"></span>
 </div>
 <div class="toast">
 </div>
@@ -197,10 +212,6 @@
 			gallery.init();
             //关闭画廊事件
             gallery.listen('close', () => {
-            	console.log('gallery lisened close event');
-            	if(util.isWeChat()){
-            		window.history.go(-1);
-            	}
                 gallery = null;
             });
 
@@ -209,6 +220,7 @@
             });
             gallery.listen('initialZoomInEnd', () => {
                 document.getElementsByClassName('pswp')[0].style.position = "absolute";
+                addPreventDefault();
             })
 		}
 		function addPreventDefault(){
