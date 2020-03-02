@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://tencentx5.github.io/x5/video_page_samelayer.htm -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x5-video-player-type="h5-page"</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        video {
+            width: 100%;
+            height: 210px;
+            position: absolute;
+            object-position: 0 0;
+            top: 100px;
+            font-size: 0px;
+        }
+
+        *,
+        select {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .fullscreen .player {
+            position: relative;
+            height: 5.36rem;
+        }
+
+        .fullscreen .video::-webkit-media-controls {
+            position: absolute;
+            bottom: 0;
+        }
+
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+        input {
+            background-image: -webkit-image-set(url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAAGXRFW…E0Gf//83LQh03mnybaYHaF3q8Xc3Lo3/yRvgbev1vEfwHrVosD4totfgAAAABJRU5ErkJggg==) 1x);
+            background-size: 48px;
+            display: flex;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0px;
+            border-width: 0px;
+            padding: 0px;
+            width: 48px;
+            height: 48px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header" class="header">标题栏</header>
+    <div class="player">
+        <!-- <video id="liveVideo" class="video" playsinline webkit-inline="" webkit-playsinline="" x5-video-player-type="h5-page"
+            x5-video-player-fullscreen="false"
+            src="https://storage.googleapis.com/media-session/caminandes/short.mp4#t=101" controlslist="nofullscreen">
+
+        </video> -->
+    </div>
+    <div id="main" class="main">这里是其他内容</div>
+    <video class="video" preload="auto" id="liveVideo"
+        type="application/x-mpegURL"
+        poster="https://i2cut.vzan.cc/image/liveImage/jpeg/2018/8/2/122726e4b48e1d513140978567e40c7f031bec.jpeg!640x360"
+        src="https://v2.weizan.cn/785733/131775627730289010/replay.1534585623.91608895.m3u8" controlslist="nodownload"
+        style="width: 100%; height: 202.5px;"  x5-video-player-fullscreen="true" x5-video-player-type="h5-page" webkit-playsinline="true"
+        x-webkit-airplay='allow' preload='auto' playsinline  ></video>
+    <button id="play">播放</button>
+    <input type="button">
+
+    <script>
+    	//https://vzan.com/livecontent/livecommon/module/wxvideoplayer.js
+    	//https://vzan.com/livecontent/livecommon/module/utils.js
+        var play = document.getElementById('play')
+        play.addEventListener('click', function () {
+            var video = document.getElementById('liveVideo')
+            video.play()
+        })
+        play.click()
+    </script>
+
+</body>
+
+</html>

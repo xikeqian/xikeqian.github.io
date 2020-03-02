@@ -124,12 +124,26 @@ video.addEventListener('seeked', function() {
 
 toggleFullscreenButton.addEventListener('click', function(event) {
   event.stopPropagation();
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
-  } else {
-    requestFullscreenVideo();
-    lockScreenInLandscape();
-  }
+  $('#videoContainer').toggleClass('full-screen')
+  screenfull.toggle()
+  // if (!screenfull.isFullscreen) {
+  //   screenfull.request($('#videoContainer')[0]).then(function () {
+  //     console.log('Browser entered fullscreen mode')
+  //   })
+  // } else {
+  //   screenfull.exit().then(function () {
+  //     console.log('Browser exited fullscreen mode')
+  //   });
+  // }
+  
+
+  
+  // if (document.fullscreenElement) {
+  //   document.exitFullscreen();
+  // } else {
+  //   requestFullscreenVideo();
+  //   lockScreenInLandscape();
+  // }
 });
 
 function requestFullscreenVideo() {

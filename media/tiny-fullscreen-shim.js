@@ -14,6 +14,8 @@ for (var prefixedFullscreenChangeEvent of ['webkitfullscreenchange']) {
     event.stopPropagation();
     event.stopImmediatePropagation();
 
+    console.log('listened webkitfullscreenchange event')
+
     var fullscreenChange = document.createEvent('Event');
     fullscreenChange.initEvent('fullscreenchange', true /*bubbles */, false /* cancelable */);
     event.target.dispatchEvent(fullscreenChange);
