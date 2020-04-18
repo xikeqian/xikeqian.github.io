@@ -12,6 +12,8 @@
         body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
         }
 
         video {
@@ -21,6 +23,7 @@
             object-position: 0 0;
             top: 100px;
             font-size: 0px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         *,
@@ -42,23 +45,28 @@
             display: none !important;
         }
 
-        input {
-            background-image: -webkit-image-set(url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAAGXRFW…E0Gf//83LQh03mnybaYHaF3q8Xc3Lo3/yRvgbev1vEfwHrVosD4totfgAAAABJRU5ErkJggg==) 1x);
-            background-size: 48px;
-            display: flex;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            background-color: transparent;
+        video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
+
+        video::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
+
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+
+        .speakInput {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 40px;
+            background: #f2f2f2;
+            color: #333;
             width: 100%;
-            height: 100%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            margin: 0px;
-            border-width: 0px;
-            padding: 0px;
-            width: 48px;
-            height: 48px;
         }
     </style>
 </head>
@@ -66,32 +74,132 @@
 <body>
 
     <header id="header" class="header">标题栏</header>
-    <div class="player">
-        <!-- <video id="liveVideo" class="video" playsinline webkit-inline="" webkit-playsinline="" x5-video-player-type="h5-page"
-            x5-video-player-fullscreen="false"
-            src="https://storage.googleapis.com/media-session/caminandes/short.mp4#t=101" controlslist="nofullscreen">
+    <div class="player" id="videoPlayer" style="position: relative;">
 
-        </video> -->
     </div>
     <div id="main" class="main">这里是其他内容</div>
-    <video class="video" preload="auto" id="liveVideo"
+
+    <script src="https://common.xxpie.com/hls.js"></script>
+
+    <!-- <video x5-video-player-type="h5-page" x5-video-player-fullscreen="true" class="video" preload="auto" id="liveVideo"
         type="application/x-mpegURL"
         poster="https://i2cut.vzan.cc/image/liveImage/jpeg/2018/8/2/122726e4b48e1d513140978567e40c7f031bec.jpeg!640x360"
         src="https://v2.weizan.cn/785733/131775627730289010/replay.1534585623.91608895.m3u8" controlslist="nodownload"
-        style="width: 100%; height: 202.5px;"  x5-video-player-fullscreen="true" x5-video-player-type="h5-page" webkit-playsinline="true"
-        x-webkit-airplay='allow' preload='auto' playsinline  ></video>
-    <button id="play">播放</button>
-    <input type="button">
+        playsinline webkit-inline webkit-playsinline x-webkit-airplay="allow" x5-video-orientation="portrait"></video> -->
 
+    <!-- http://pili-live-hls.live.xxpie.com/xxpievideolive/5e68d38e09063501c6539c1a@720p.m3u8 -->
+    <!-- https://v2.weizan.cn/785733/131775627730289010/replay.1534585623.91608895.m3u8 -->
+
+    <video class="video" preload="auto" id="liveVideo" type="application/x-mpegURL"
+        poster="https://i2cut.vzan.cc/image/liveImage/jpeg/2018/8/2/122726e4b48e1d513140978567e40c7f031bec.jpeg!640x360"
+        src="https://v2.weizan.cn/785733/131775627730289010/replay.1534585623.91608895.m3u8"
+        style="width: 100%; height: 202.5px;" controlsList="nodownload" x5-video-player-type="h5-page"
+        x5-video-player-fullscreen="true" x5-video-orientation="portrait" playsinline webkit-playsinline
+        x-webkit-airplay="allow"></video>
+    <button id="play">播放</button>
+
+
+    <input class="speakInput" />
+    <script src="https://common.xxpie.com/zepto.min.js"></script>
     <script>
-    	//https://vzan.com/livecontent/livecommon/module/wxvideoplayer.js
-    	//https://vzan.com/livecontent/livecommon/module/utils.js
-        var play = document.getElementById('play')
-        play.addEventListener('click', function () {
-            var video = document.getElementById('liveVideo')
-            video.play()
+        // https://vzan.com/livecontent/livecommon/module/wxvideoplayer.js    //https://j.vzan.cc/zhibo/livecontent/livecommon/module/wxvideoplayer.js
+        // https://vzan.com/livecontent/livecommon/module/utils.js
+        // https://vzan.com/livecontent/livecommon/module/lottery.js
+        // https://vzan.com/livecontent/livecommon/module/controls.js
+        // https://vzan.com/livecontent/livecommon/module/Praise.js
+        // https://vzan.com/livecontent/livecommon/module/fps.js
+        // https://vzan.com/livecontent/livecommon/module/shop.js
+        // https://vzan.com/livecontent/livecommon/module/heart.js
+        // https://vzan.com/livecontent/livecommon/module/im.js
+        // https://vzan.com/livecontent/livecommon/module/gift.js
+        // https://vzan.com/livecontent/livecommon/module/coupon.js
+        // https://vzan.com/livecontent/livecommon/module/vote_custom.js
+        // https://vzan.com/livecontent/livecommon/module/live.js
+        // https://vzan.com/livecontent/livecommon/module/vertical.js
+        // https://vzan.com/livecontent/livecommon/module/house.js
+        // https://vzan.com/livecontent/livecommon/app/main.js
+        // https://vzan.com/livecontent/livecommon/module/inputbox.js
+
+        $(document).ready(function () {
+
+            var videoPlayer = document.getElementById('liveVideo')
+
+            videoPlayer.addEventListener('canplay', function (e) {
+                console.log('canplay: ', e)
+            })
+            videoPlayer.addEventListener('canplaythrough', function (e) {
+                console.log('video canplaythrough', e.target.readyState)
+            })
+            videoPlayer.addEventListener('loadedmetadata', function () {
+                console.log('loadedmetadata')
+            })
+            videoPlayer.addEventListener('progress', function (e) {
+                console.log('progress')
+            })
+            videoPlayer.addEventListener('loadeddata', function (e) {
+                console.log('媒体的第一帧已经加载完毕')
+            })
+
+            if (Hls.isSupported()) {
+                var hls = new Hls({
+                    manifestLoadingTimeOut: 3000,
+                    liveDurationInfinity: true
+                });
+                // bind them together
+                var video = document.createElement('video')
+                hls.attachMedia(video);
+                // MEDIA_ATTACHED event is fired by hls object once MediaSource is ready
+                hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+                    console.log("video and hls.js are now bound together !");
+                    hls.loadSource("http://pili-live-hls.live.xxpie.com/xxpievideolive/5e68d38e09063501c6539c1a@720p.m3u8");
+                    setTimeout(() => {
+                        console.log('timeout 3s')
+                    }, 3000)
+                    hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+                        console.log("manifest loaded, found " + data.levels.length + " quality level");
+                    });
+                });
+
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    var errorType = data.type;
+                    var errorDetails = data.details;
+                    var errorFatal = data.fatal;
+                    console.log('errorDetails', errorDetails)
+                    hls.destroy();
+
+                    switch (data.details) {
+                        case Hls.ErrorDetails.FRAG_LOAD_ERROR:
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+            }
+
+
+
+            $("#playbtn").show()
+            $('#play').on('click', function (e) {
+                videoPlayer.play()
+            })
+
+
+            $('.speakInput').on('keydown', function (e) {
+                var basenode = $(this);
+                var inputvalue = basenode.val();
+                if (inputvalue.length > 0 && e.keyCode == 8) {
+                    if (inputvalue.lastIndexOf(']') == inputvalue.length - 1) {
+                        //inputvalue = inputvalue.replace(/(\[[\u2E80-\u9FFF|no|ok]{1,3}\]\0)/gi, "");
+                        inputvalue = inputvalue.substring(0, inputvalue.lastIndexOf('['));
+                        basenode.val(inputvalue).trigger("input");
+
+                        return false;
+                    }
+
+                }
+            })
         })
-        play.click()
     </script>
 
 </body>

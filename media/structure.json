@@ -1,0 +1,209 @@
+{
+    "code": 0,
+    "result": [
+        {
+            "group_def_id": "5e79ad01b1ce663f290557c5",
+            "seq": 1000,
+            "name": "顶部宣传图/视频",
+            "code": "BANNER",
+            "modules": []
+        },
+        {
+            "group_def_id": "5e79ad01b1ce663f290557c6",
+            "seq": 2000,
+            "name": "名片",
+            "code": "BUSINESS_CARD",
+            "modules": [
+                {
+                    "group_def_id": "5e79ad01b1ce663f290557c6",
+                    "parent_module_def_id": "",
+                    "module_def_id": "5e79ad01b1ce663f2905578a",
+                    "name": "名片",
+                    "code": "BUSINESS_CARD",
+                    "action_type": "LOWER_LEVEL",
+                    "seq": 1000,
+                    "module_number_limit": 1,
+                    "module_is_required": 0,
+                    "module_default_value": "1",
+                    "module_is_inst": 0
+                }
+            ]
+        },
+        {
+            "group_def_id": "5e79ad01b1ce663f290557c7",
+            "seq": 3000,
+            "name": "相册信息",
+            "code": "ALBUM_INFO",
+            "modules": [
+                {
+                    "group_def_id": "5e79ad01b1ce663f290557c7",
+                    "parent_module_def_id": "",
+                    "module_def_id": "5e79ad01b1ce663f2905578b",
+                    "name": "相册信息",
+                    "code": "ALBUM_INFO",
+                    "action_type": "",
+                    "seq": 1000,
+                    "module_number_limit": 1,
+                    "module_is_required": 0,
+                    "module_default_value": "1",
+                    "module_is_inst": 0
+                }
+            ]
+        },
+        {
+            "group_def_id": "5e79ad01b1ce663f290557cc",
+            "seq": 4000,
+            "name": "信息卡片集",
+            "code": "INFO_CARD_SET",
+            "modules": []
+        },
+        {
+            "group_def_id": "5e79ad01b1ce663f290557c8",
+            "seq": 5000,
+            "name": "功能",
+            "code": "FUNCTION",
+            "modules": [
+                {
+                    "template_module_inst_id": "56f74c80-6e71-11ea-8271-6c92bf5c62cc",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055764",
+                    "name": "图片",
+                    "type": "",
+                    "seq": 0,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-25T08:19:25.000Z",
+                    "update_time": null,
+                    "introduction": "",
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "57158200-6e71-11ea-8271-6c92bf5c62cc",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055765",
+                    "name": "视频",
+                    "type": "",
+                    "seq": 1,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-25T08:19:25.000Z",
+                    "update_time": null,
+                    "introduction": "",
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e7850b2e6521b1ef676bc58",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d406898781b5b2eb6a8b6f1",
+                    "module_def_id": "5e79ad01b1ce663f29055764",
+                    "name": "图片直播",
+                    "type": null,
+                    "seq": 1,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-23T06:01:23.000Z",
+                    "update_time": "2020-03-23T13:05:57.000Z",
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e7850b2e6521b1ef676bc59",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d406898781b5b2eb6a8b6f1",
+                    "module_def_id": "5e79ad01b1ce663f29055766",
+                    "name": "聊天互动",
+                    "type": null,
+                    "seq": 2,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-23T06:01:23.000Z",
+                    "update_time": "2020-03-23T13:05:58.000Z",
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e78b4d1f9da25220ffb8e95",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d406898781b5b2eb6a8b6f1",
+                    "module_def_id": "5e79ad01b1ce663f29055765",
+                    "name": "视频",
+                    "type": null,
+                    "seq": 3,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-23T13:08:34.000Z",
+                    "update_time": null,
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e79d5f3cf658e11ae3c2796",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055765",
+                    "name": "视频",
+                    "type": null,
+                    "seq": 5,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-24T09:42:12.000Z",
+                    "update_time": null,
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e79d5f3cf658e11ae3c2797",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055768",
+                    "name": "商城",
+                    "type": null,
+                    "seq": 6,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-24T09:42:12.000Z",
+                    "update_time": null,
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e79d5f3cf658e11ae3c2798",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055769",
+                    "name": "文档",
+                    "type": null,
+                    "seq": 7,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-24T09:42:12.000Z",
+                    "update_time": null,
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e79d5f3cf658e11ae3c2799",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f2905576a",
+                    "name": "目录",
+                    "type": null,
+                    "seq": 8,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-24T09:42:12.000Z",
+                    "update_time": null,
+                    "introduction": null,
+                    "code": ""
+                },
+                {
+                    "template_module_inst_id": "5e79fca7c2662615e2c34504",
+                    "template_inst_id": "5e7850b2e6521b1ef676bc57",
+                    "user_id": "5d072c4dc1eae95b72888eed",
+                    "module_def_id": "5e79ad01b1ce663f29055767",
+                    "name": "活动简介",
+                    "type": null,
+                    "seq": 9,
+                    "status": "NORMAL",
+                    "create_time": "2020-03-24T12:27:20.000Z",
+                    "update_time": null,
+                    "introduction": "这是图文内容&nbsp;",
+                    "code": ""
+                }
+            ]
+        }
+    ]
+}
