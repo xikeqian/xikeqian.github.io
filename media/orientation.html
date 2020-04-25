@@ -98,10 +98,11 @@
         x-webkit-airplay="allow"></video>
     <button id="play">播放</button>
 
-
+    <p id="time"></p>
     <input class="speakInput" />
-    <script src="https://common.xxpie.com/zepto.min.js"></script>
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script type="text/javascript">eruda.init();</script>
+    <!-- <script>
         // https://vzan.com/livecontent/livecommon/module/wxvideoplayer.js    //https://j.vzan.cc/zhibo/livecontent/livecommon/module/wxvideoplayer.js
         // https://vzan.com/livecontent/livecommon/module/utils.js
         // https://vzan.com/livecontent/livecommon/module/lottery.js
@@ -200,8 +201,52 @@
                 }
             })
         })
-    </script>
+    </script> -->
 
+    <script>
+        let str = '2020.04.25 02:00'
+        let liveStartTime = str.replace(/(\.)+\.*\b/g, '/')
+        console
+        if (new Date(liveStartTime).getTime() && new Date(liveStartTime).getTime() > new Date().getTime()) {
+            let endTime = new Date(liveStartTime).getTime()
+            this.countDownTimer = setInterval(() => {
+                let startTime = new Date().getTime()
+                updategetYMDhms(startTime, endTime)
+            }, 1000)
+        }
+        
+        let countDownText = ''
+
+
+        function updategetYMDhms(start, end) {
+            var s1 = start
+            var s2 = end //毫秒为单位
+            var total = parseInt((s2 - s1) / 1000)
+            var day = parseInt(total / (24 * 60 * 60)) //计算整数天数
+            var afterDay = total - day * 24 * 60 * 60 //取得算出天数后剩余的秒数
+            var hour = parseInt(afterDay / (60 * 60)) //计算整数小时数
+            var afterHour = total - day * 24 * 60 * 60 - hour * 60 * 60 //取得算出小时数后剩余的秒数
+            var min = parseInt(afterHour / 60) //计算整数分
+            var afterMin = total - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60
+
+            day = day > 0 ? (day > 9 ? day : '0' + day) : '00'
+            hour = hour > 0 ? (hour > 9 ? hour : '0' + hour) : '00'
+            min = min > 0 ? (min > 9 ? min : '0' + min) : '00'
+            afterMin = afterMin > 0 ? (afterMin > 9 ? afterMin : '0' + afterMin) : '00'
+            if (day == '00' && hour == '00' && min == '00' && afterMin == '00') {
+                clearInterval(this.countDownTimer)
+                countDownText = ''
+                return
+            }
+            countDownText = `
+                <span style="padding-right: 6px;">距离直播开始</span><span style="font-size: 20px;font-weight:600;color: #FFBF28;padding: 0 3px 0 6px;">${day}</span>天
+                <span style="font-size: 20px;font-weight:600;color: #FFBF28;padding: 0 3px 0 6px;">${hour}</span>时
+                <span style="font-size: 20px;font-weight:600;color: #FFBF28;padding: 0 3px 0 6px;">${min}</span>分
+                <span style="font-size: 20px;font-weight:600;color: #FFBF28;padding: 0 3px 0 6px;">${afterMin}</span>秒
+            `
+            document.getElementById('time').innerHTML = countDownText
+        }
+    </script>
 </body>
 
 </html>
